@@ -1,0 +1,23 @@
+{
+    "name": "Colorblindness Extension",
+    "description": "Displays web pages with a colorblind-friendly color scheme",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["storage"],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "/images/palette16.png",
+            "48": "/images/palette48.png",
+            "128": "/images/palette128.png"
+        }
+    },
+    "icons": {
+        "16": "/images/palette16.png",
+        "48": "/images/palette48.png",
+        "128": "/images/palette128.png"
+    }
+  }
