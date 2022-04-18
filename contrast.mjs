@@ -42,6 +42,8 @@ function luminance(r, g, b) {
 }
 
 export function getContrast(rgb1, rgb2) {
+	// rgb1 = rgb1.match(/\w\w/g).map(x => parseInt(x, 16));
+	// rgb2 = rgb2.match(/\w\w/g).map(x => parseInt(x, 16));
     var lum1 = luminance(rgb1[0], rgb1[1], rgb1[2]);
     var lum2 = luminance(rgb2[0], rgb2[1], rgb2[2]);
     var brightest = Math.max(lum1, lum2);
