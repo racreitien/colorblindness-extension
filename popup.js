@@ -19,18 +19,7 @@ for (let i = 0; i < elements.length; i++) {
         let contrast = getContrast(textColor, backgroundColor);
 
         // find the needed contrast ratio depending on type of text
-        let goodContrast = NaN;
-
-        // define large text --> at least 18 pt regular font or 14 pt bold font
-        let fontWeight = getComputedStyle(element).fontWeight;
-        let largeFont = (Number(fontWeight) > 400 || fontWeight === "bold") ? 14 : 18;
-
-        if (element.nodeName.startsWith("H") || element.style.fontSize >= largeFont) {
-            goodContrast = 4.5;
-        }
-        else {
-            goodContrast = 7;
-        }
+        let goodContrast = minContrast(element);
 
         if (contrast < goodContrast) {
             badElements.push(element);  // does not meet WCAG, need to fix

@@ -28,9 +28,10 @@ pSBC.pSBCr=(d)=>{
 		else x.r=d>>16,x.g=d>>8&255,x.b=d&255,x.a=-1
 	}return x
 };
+// ABOVE taken from https://github.com/PimpTrizkit/PJs/wiki/12.-Shade,-Blend-and-Convert-a-Web-Color-(pSBC.js)
 
 // calculates the contrast of two colors
-// https://github.com/LeaVerou/contrast-ratio/tree/d402291022c882c9ae5547b755afa9976460374c
+// BELOW taken from https://github.com/LeaVerou/contrast-ratio/tree/d402291022c882c9ae5547b755afa9976460374c
 function luminance(r, g, b) {
     var a = [r, g, b].map(function (v) {
         v /= 255;
@@ -48,6 +49,20 @@ export function getContrast(rgb1, rgb2) {
     var darkest = Math.min(lum1, lum2);
     return (brightest + 0.05)
          / (darkest + 0.05);
+}
+// ABOVE taken from https://github.com/LeaVerou/contrast-ratio/tree/d402291022c882c9ae5547b755afa9976460374c
+
+// returns the minimum contrast ratio that satisfies WCAG AAA according to type of text
+export function minContrast(element) {
+	// define large text --> at least 18 pt regular font or 14 pt bold font
+	let fontWeight = getComputedStyle(element).fontWeight;
+	let largeFont = (Number(fontWeight) > 400 || fontWeight === "bold") ? 14 : 18;
+
+	if (element.nodeName.startsWith("H") || element.style.fontSize >= largeFont) {
+		return 4.5;
+	}
+	
+	return 7;  // normal text
 }
 
 // TODO: add function that darkens a color to meet a certain ratio against a second color
