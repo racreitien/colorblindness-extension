@@ -9,9 +9,10 @@ import { pSBC, getContrast, minContrast } from './contrast.mjs';
 let elements = document.body.getElementsByTagName("*");  // get all elements inside body
 let badElements = [];
 
-for (let i = 0; i < elements.length; i++) {
+for (let i = 0; i < elements.length; i++) { //goes through all elements
     let element = elements[i];
-    if (element.textContent.trim !== "") {
+    if (element.textContent.trim !== "") { //check that it's an element with text
+        //get the element's text color and background color
         let textColor = element.style.color;
         let backgroundColor = element.style.backgroundColor;
 
@@ -28,3 +29,11 @@ for (let i = 0; i < elements.length; i++) {
 }
 
 // TODO: for each pair, darken the darker color until AAA standard is met and apply the change to the HTML element
+    //call darken
+    //when you find that color that meets the standard, then apply the chance
+    //element.style.color = darker
+
+//TODO: add something to store the original (global value)
+    //original elements array that stores the original element
+    //when they toggle back, reset it
+    //instead of in the listener, it's outside

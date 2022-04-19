@@ -1,4 +1,4 @@
-// shades, blends, or converts a HEX or RBG color
+// take a color and darken in without changing the shade.
 // origination: https://github.com/PimpTrizkit/PJs/wiki/12.-Shade,-Blend-and-Convert-a-Web-Color-(pSBC.js)
 export const pSBC = (percent, from, to, linear_blending) => {
 	//from: "before" color, to: "after" color
@@ -95,6 +95,7 @@ function luminance(r, g, b) {
 }
 
 // origination: https://github.com/LeaVerou/contrast-ratio/tree/d402291022c882c9ae5547b755afa9976460374c
+// calculate beginnning contrast
 export function getContrast(rgb1, rgb2) {
     var lum1 = luminance(rgb1[0], rgb1[1], rgb1[2]);
     var lum2 = luminance(rgb2[0], rgb2[1], rgb2[2]);
@@ -118,6 +119,10 @@ export function minContrast(element) {
 }
 
 // TODO: add function that darkens a color to meet a certain ratio against a second color
-export function darken(darker, lighter, contrast) {
+export function darken(darker, lighter, contrast) { //pass in element instead of contrast?
+	//call pSBC here until you reach the getContrast parameter in a while loop
+	
+	//while getcontrast is less than mincontrast
+		//call pSBC
 	return darker;
 }
