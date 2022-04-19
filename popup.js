@@ -1,7 +1,7 @@
 let contrastSwitch = document.getElementById("contrastSwitch");
 // TODO: add listener for contrast switch being set to on/off
 
-import { pSBC, getContrast } from './contrast.mjs';
+import { pSBC, getContrast, minContrast } from './contrast.mjs';
 
 // find elements that have a bad contrast ratio according to WCAG AAA
 // 7:1 for regular text
