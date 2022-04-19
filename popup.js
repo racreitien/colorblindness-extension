@@ -27,5 +27,4 @@ for (let i = 0; i < elements.length; i++) {
     }
 }
 
-// TODO: for each pair, darken the darker color until AAA standard is met
-//       and apply the change to the HTML element
+// TODO: for each pair, darken the darker color until AAA standard is met and apply the change to the HTML element
