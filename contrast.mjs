@@ -144,9 +144,9 @@ export function minContrast(element) {
 }
 
 // TODO: add function that darkens a color to meet a certain ratio against a second color
-export function darken(darker, lighter, contrast) { //pass in element instead of contrast?
+export function darken(darker, lighter, element) { //pass in element instead of contrast?
 	//call pSBC here until you reach the getContrast parameter in a while loop
-	while (getcontrast(darker, lighter) < minContrast(contrast)){
+	while (getcontrast(darker, lighter) < minContrast(element)){
 		lighter = pSBC (0.25, light); // 25% Lighter
 		darker = pSBC (0.25, darker); // 25% Darker
 	}
