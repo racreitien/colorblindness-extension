@@ -96,6 +96,16 @@ export function realBackgroundColor(elem) {
     }
 }
 
+// turns an rgb string in format rgb(0, 0, 0) to an array [0, 0, 0]
+export function makeArrayRGB(rgb) {
+	let colorArr = rgb.slice(
+		rgb.indexOf("(") + 1, 
+		rgb.indexOf(")")
+	).split(", ");
+
+	return colorArr;
+}  
+
 // calculates the contrast of two colors
 // origination: https://github.com/LeaVerou/contrast-ratio/tree/d402291022c882c9ae5547b755afa9976460374c
 function luminance(r, g, b) {

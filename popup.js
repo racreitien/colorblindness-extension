@@ -1,7 +1,7 @@
 let contrastSwitch = document.getElementById("contrastSwitch");
 // TODO: add listener for contrast switch being set to on/off
 
-import { pSBC, realBackgroundColor, getContrast, minContrast } from './contrast.mjs';
+import { pSBC, makeArrayRGB, realBackgroundColor, getContrast, minContrast } from './contrast.mjs';
 
 // find elements that have a bad contrast ratio according to WCAG AAA
 // 7:1 for regular text
@@ -14,9 +14,9 @@ for (let i = 0; i < elements.length; i++) { //goes through all elements
     if (element.textContent.trim !== "") { //check that it's an element with text
         console.log("on element " + element.nodeName + ": " + element.textContent)
         //get the element's text color and background color
-        let textColor = getComputedStyle(element).color;
-        let backgroundColor = realBackgroundColor(element);
-        console.log(textColor + ", background color: " + backgroundColor)
+        let textColor = makeArrayRGB(getComputedStyle(element).color);
+        let backgroundColor = makeArrayRGB(realBackgroundColor(element));
+        console.log("text color: " + textColor + ", background color: " + backgroundColor)
 
         // calculate contrast ratio
         let contrast = getContrast(textColor, backgroundColor);
