@@ -150,5 +150,5 @@ export function darken(darker, lighter, element) { //pass in element instead of 
 		lighter = pSBC (0.25, light); // 25% Lighter
 		darker = pSBC (0.25, darker); // 25% Darker
 	}
-	return darker;
+	return darker, lighter;
 }
