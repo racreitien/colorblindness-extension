@@ -81,6 +81,21 @@ pSBC.pSBCr = (digits) => {
 	} return x
 };
 
+// gets the background color of a DOM element
+// origination: https://stackoverflow.com/questions/12576084/getting-the-real-background-color-of-an-element
+export function realBackgroundColor(elem) {
+    var transparent = 'rgba(0, 0, 0, 0)';
+    var transparentIE11 = 'transparent';
+    if (!elem) return transparent;
+
+    var bg = getComputedStyle(elem).backgroundColor;
+    if (bg === transparent || bg === transparentIE11) {
+        return realBackgroundColor(elem.parentElement);
+    } else {
+        return bg;
+    }
+}
+
 // calculates the contrast of two colors
 // origination: https://github.com/LeaVerou/contrast-ratio/tree/d402291022c882c9ae5547b755afa9976460374c
 function luminance(r, g, b) {
