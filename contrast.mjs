@@ -126,8 +126,11 @@ export function getContrast(rgb1, rgb2) {
     var lum2 = luminance(rgb2[0], rgb2[1], rgb2[2]);
     var brightest = Math.max(lum1, lum2);
     var darkest = Math.min(lum1, lum2);
-    return (brightest + 0.05)
-         / (darkest + 0.05);
+	var isBright = false;
+	if (lum1 == brightest) {
+		isBright = true;
+	}
+    return (brightest + 0.05) / (darkest + 0.05), isBright;
 }
 
 // returns the minimum contrast ratio that satisfies WCAG AAA according to type of text
@@ -146,7 +149,7 @@ export function minContrast(element) {
 // TODO: add function that darkens a color to meet a certain ratio against a second color
 export function darken(darker, lighter, element) { //pass in element instead of contrast?
 	//call pSBC here until you reach the getContrast parameter in a while loop
-	while (getcontrast(darker, lighter) < minContrast(element)){
+	while (getContrast(darker, lighter) < minContrast(element)){
 		lighter = pSBC (0.25, light); // 25% Lighter
 		darker = pSBC (0.25, darker); // 25% Darker
 	}
