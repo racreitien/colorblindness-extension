@@ -98,11 +98,13 @@ export function realBackgroundColor(elem) {
 
 // turns an rgb string in format rgb(0, 0, 0) to an array [0, 0, 0]
 export function makeArrayRGB(rgb) {
+	alert("test");
+	alert(rgb);
 	let colorArr = rgb.slice(
 		rgb.indexOf("(") + 1, 
 		rgb.indexOf(")")
 	).split(", ");
-
+	
 	return colorArr;
 }  
 
