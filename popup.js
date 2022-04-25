@@ -62,7 +62,7 @@ btn.addEventListener("click", async () => {
             f = alpha >= 0 || t >= 0;
             alpha = f ? alpha < 0 ? t : t < 0 ? alpha : alpha * P + t * percent : 0;
             if (hex) {
-                return "rgb" + (f ? "a(" : "(" ) + r + "," + g + "," + b + (f ? "," + m(alpha * 1000)/1000 : "") + ")";
+                return "rgb(" + r + ", " + g + ", " + b + ")";
             } else {
                 return "#" + (4294967296 + r * 16777216 + g * 65536 + b * 256 + (f ? m(alpha * 255) : 0)).toString(16).slice(1, f ? undefined : -2);
             }
@@ -135,14 +135,12 @@ btn.addEventListener("click", async () => {
         // origination: https://github.com/LeaVerou/contrast-ratio/tree/d402291022c882c9ae5547b755afa9976460374c
         function luminance(r, g, b) {
             //r, g, b: RGB colors
-            var a = [r, g, b].map(function (v) {
-                
+            var a = [r, g, b].map(function (v) {         
                 v /= 255;
                 return v <= 0.03928
                     ? v / 12.92
                     : Math.pow( (v + 0.055) / 1.055, 2.4 );
             });
-            // let new_r = a[0] * 0.2126 
             return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
         }
 
@@ -179,11 +177,15 @@ btn.addEventListener("click", async () => {
         function darken(darker, lighter, element) { //pass in element instead of contrast?
             //call pSBC here until you reach the getContrast parameter in a while loop
             while (getContrast(darker, lighter)[0] < minContrast(element)){
-                let light = 'rgb('+lighter[0]+','+lighter[1]+','+lighter[2]+')';//'rgb('+lighter+')';
-                let dark = 'rgb('+darker[0]+','+darker[1]+','+darker[2]+')';//'rgb('+darker+')';
-                lighter = pSBC (0.5, light); // 25% Lighter
-                darker = pSBC (-0.5, dark); // 25% Darker
+                let light = 'rgb('+lighter[0]+','+lighter[1]+','+lighter[2]+')';
+                let dark = 'rgb('+darker[0]+','+darker[1]+','+darker[2]+')';
+                lighter = makeArrayRGB(pSBC (0.25, light)); // 25% Lighter
+                darker = makeArrayRGB(pSBC (-0.25, dark)); // 25% Darker
+                // alert(getContrast(darker, lighter)[0]);
+                // lighter, darker: rgb(#,#,#)
             }
+            lighter = 'rgb('+lighter[0]+','+lighter[1]+','+lighter[2]+')';
+            darker = 'rgb('+darker[0]+','+darker[1]+','+darker[2]+')';
             return [darker, lighter];
         }
         /* * * * * * * * * END DEBUG * * * * * * * * */
