@@ -136,11 +136,13 @@ btn.addEventListener("click", async () => {
         function luminance(r, g, b) {
             //r, g, b: RGB colors
             var a = [r, g, b].map(function (v) {
+                
                 v /= 255;
                 return v <= 0.03928
                     ? v / 12.92
                     : Math.pow( (v + 0.055) / 1.055, 2.4 );
             });
+            // let new_r = a[0] * 0.2126 
             return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
         }
 
@@ -172,15 +174,17 @@ btn.addEventListener("click", async () => {
         }
 
         // TODO: add function that darkens a color to meet a certain ratio against a second color
+        // getContrast():   [#,#,#] input
+        // pSBC():          rgb(#,#,#) input
         function darken(darker, lighter, element) { //pass in element instead of contrast?
             //call pSBC here until you reach the getContrast parameter in a while loop
             while (getContrast(darker, lighter)[0] < minContrast(element)){
                 let light = 'rgb('+lighter[0]+','+lighter[1]+','+lighter[2]+')';//'rgb('+lighter+')';
                 let dark = 'rgb('+darker[0]+','+darker[1]+','+darker[2]+')';//'rgb('+darker+')';
-                lighter = pSBC (0.25, light); // 25% Lighter
-                darker = pSBC (0.25, dark); // 25% Darker
+                lighter = pSBC (0.5, light); // 25% Lighter
+                darker = pSBC (-0.5, dark); // 25% Darker
             }
-            return darker, lighter;
+            return [darker, lighter];
         }
         /* * * * * * * * * END DEBUG * * * * * * * * */
         
@@ -192,7 +196,7 @@ btn.addEventListener("click", async () => {
 
 
 
-        
+
 
         
         // find elements that have a bad contrast ratio according to WCAG AAA
@@ -228,10 +232,6 @@ btn.addEventListener("click", async () => {
                 } catch (error) {
                     console.error(error);
                 }
-                /* * * * * * * * * DEBUG * * * * * * * * */
-                // push all elements into badElements for now
-                badElements.push(element);
-                /* * * * * * * * * * * * * * * * * * * * */
             }
             
             //adjust colors to bad elements
@@ -253,21 +253,16 @@ btn.addEventListener("click", async () => {
                 }
                 
                 //call darken to actually find the colors to correct to.
-                let darker_color, lighter_color = darken(darker, lighter, badElements[i]);
-
+                let new_colors = darken(darker, lighter, badElements[i]);
+                let darker_color = new_colors[0];
+                let lighter_color = new_colors[1];
                 if (isBright) { 
                     badElements[i].style.color = lighter_color;
-                    badElements[i].style.backgroundColor = darker_color;
+                    document.body.style.backgroundColor = darker_color;
                 } else {
                     badElements[i].style.color = darker_color;
-                    badElements[i].style.backgroundColor = lighter_color;
+                    document.body.style.backgroundColor = lighter_color;
                 }
-                
-                /* * * * * * * * * DEBUG * * * * * * * * */
-                // temporary test code to show how it works
-                badElements[i].style.color = "Red";
-                document.body.style.backgroundColor = "green";
-                /* * * * * * * * * * * * * * * * * * * * */
             }
         } else {
             window.location.reload();
